@@ -1,4 +1,4 @@
-import {Router, Request, Response, NextFunction} from "express";
+import { Router, Request, Response, NextFunction } from "express";
 
 interface RequestWithBody extends Request{
     body: { [key: string]: string | undefined }
@@ -15,17 +15,6 @@ function requireAuth(req: Request, res: Response, next: NextFunction): void {
 }
 
 const router = Router();
-
-router.post('/login', ((req: RequestWithBody, res: Response) => {
-    const { email, password } = req.body;
-
-    if (email && password && email === 'hi@hi.com' && password === 'password') {
-        req.session = { loggedIn: true };
-        res.redirect('/');
-    } else {
-        res.send('invalid email or password')
-    }
-}));
 
 router.get('/', (req: Request, res: Response) => {
     if (req.session && req.session.loggedIn) {
